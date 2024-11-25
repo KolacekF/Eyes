@@ -1,0 +1,113 @@
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>Mouse Move</title>
+        <style>
+            #eye_box{
+                width: 100px;
+                height: 100px;
+                border: solid;
+            }
+            #eye_center{
+                width: 5px;
+                height: 5px;
+                border: solid;
+            }
+            .eye_box{
+                width: 100px;
+                height: 100px;
+                border: solid;
+            }
+            .eye_center{
+                width: 5px;
+                height: 5px;
+                border: solid;
+            }
+        </style>
+        <style>
+            .fd_wrapper{
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                min-height: 100vh;
+                background: #0c3b5a; 
+            }
+            .fd_container{
+                display: flex;
+            }
+            .fd_container .fd_eyes{
+                display: flex;
+                place-items: center;
+                justify-content: center;
+                position: relative;
+                width: 100px;
+                height: 100px;
+                background-color: #fff;
+                margin: 0 20px;
+                border-radius: 50%;
+                box-shadow: 0 5px 45px rgba(0, 0, 0, 0.2), inset 0 0 15px #f5af19,
+                inset 0 0 25px #f5af19;
+            }
+            .fd_container .fd_eyes .fd_pupils{
+                width: 50px;
+                height: 50px;
+                border-radius: 50%;
+                background: #000;
+                border: 10px solid skyblue;
+                box-sizing: border-box;
+            }
+        </style>
+    </head>
+    <body>
+        <script type="module">import Buttons from "../buttons.js"; Buttons(document.body)</script>
+        <p id="p1">p1</p>
+        <p id="p2">p2</p>
+        <p id="p3">p3</p>
+        <p id="p4">p4</p>
+        <p id="p5">p5</p>
+
+        <div id="eye_box">
+            <div id="eye_center"></div>
+        </div>
+
+        <div class="eye_box" id="eye1" style="position: relative; left: 50%;">
+            <div class="eye_center" id="eye2"></div>
+        </div>
+
+
+        <div class="fd_wrapper">
+            <div class="fd_container">
+                <div id="fd_eye1" class="fd_eyes">
+                    <div id="fd_pupil1" class="fd_pupils"></div>
+                </div>
+                <div id="fd_eye2" class="fd_eyes">
+                    <div id="fd_pupil2" class="fd_pupils"></div>
+                </div>
+            </div>
+        </div>
+        <script type="module">
+            import Eye from "./eye.js";
+            const fd_eye1 = new Eye(document.getElementById("fd_eye1"), 25, document.getElementById("fd_pupil1"), true);
+            const fd_eye2 = new Eye(document.getElementById("fd_eye2"), 25, document.getElementById("fd_pupil2"));
+        </script>
+
+
+        
+        <script type="module">
+            //import{ ElementPosition } from "./main.js"; //function, but dont want it anymore to function
+            //import * as fn from "./main.js"; //doesnt function
+            
+            function GetElement(e, m){
+                document.getElementById(e).innerHTML = m;
+            }
+
+            let elementCords = ElementPosition(document.getElementById("p1"));
+            //GetElement("p1", name);
+            GetElement("p2", elementCords.top);
+            GetElement("p3", elementCords.left);
+
+
+            
+        </script>
+    </body>
+</html>
