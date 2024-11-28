@@ -3,6 +3,101 @@
         <meta charset="UTF-8">
         <title>Mouse Move</title>
         <style>
+            body{
+                margin: 0;
+                background-color: #fff;
+            }
+            .section{
+                height: 50vh;
+                background-color: lightcyan;
+                margin: 20px 0 20px 0;
+                display: flex;
+                align-content: center;
+                justify-content: center;
+                gap: 50px;
+            }
+            .section pre{
+                flex-grow: 0.5;
+                max-width: 50vw;
+                overflow: scroll;
+                background-color: rgb(236, 254, 254);
+            }
+            .container{
+                display: flex;
+                align-items: center;
+            }
+
+
+            .eye{
+                width: 100px;
+                height: 100px;
+            }
+            .pupil{
+                width: 50px;
+                height: 50px;
+                border-radius: 25px;
+            }
+
+            .edges{
+                border: lightcoral solid;
+                border-radius: 80% 0;
+                transform: rotate(45deg);
+            }
+            
+            .eyelid{
+                position: absolute;
+                width: 100px;
+                height: 100px;
+                border-bottom: 3px solid;
+                border-right: 3px solid;
+                border-radius: 80% 0;
+                transform: rotate3d(0, 0, 0, 0);
+                animation: eyelid 1s infinite alternate;
+            }
+            @keyframes eyelid {
+                to {transform: rotate3d(1, -1, 0, 180deg); top: -3px; left: -3px;}
+            }
+        </style>
+        <style>
+            #test .eye_wrapper{
+                overflow: hidden;
+                padding: 25px;
+            }
+            #test .eyelid{
+                content: "";
+                animation: none;
+                transition: all 1s ease;
+                z-index: 10;
+            }
+            #test.open .eyelid{
+                transform: rotate3d(0, 0, 0, 0);
+            }
+            #test.close .eyelid{
+                transform: rotate3d(1, -1, 0, 180deg); top: -3px; left: -3px;
+            }
+            
+            #test .close_lid{
+                position: relative;
+            }
+            #test .close_lid::after{
+                content: "";
+                background-color: lightcyan;
+                display: block;
+                position: absolute;
+                width: 150%;
+                height: 150%;
+                left: -25px;
+                transition: all 1s ease;
+                z-index: 1;
+            }
+            #test.open .close_lid::after{
+                top: -25%;
+            }
+            #test.close .close_lid::after{
+                top: -150%;
+            }
+        </style>
+        <style>
             #eye_box{
                 width: 100px;
                 height: 100px;
@@ -60,22 +155,102 @@
     </head>
     <body>
         <script type="module">import Buttons from "../buttons.js"; Buttons(document.body)</script>
-        <p id="p1">p1</p>
-        <p id="p2">p2</p>
-        <p id="p3">p3</p>
-        <p id="p4">p4</p>
-        <p id="p5">p5</p>
+        
+        <div class="section">
+            <pre>
+.eye{
+    width: 100px;
+    height: 100px;
+}
+.pupil{
+    width: 50px;
+    height: 50px;
+    border-radius: 25px;
+}
 
-        <div id="eye_box">
-            <div id="eye_center"></div>
+const A_eye1 = new Eye(document.getElementById("A_eye1"), 25, document.getElementById("A_pupil1"), true);
+const A_eye2 = new Eye(document.getElementById("A_eye2"), 25, document.getElementById("A_pupil2"));
+            </pre>
+            <div class="container">
+                <div id="A_eye1" class="eye" style="border: lightcoral solid;">
+                    <div id="A_pupil1" class="pupil" style="border: lightcoral solid;"></div>
+                </div>
+                <div id="A_eye2" class="eye" style="border: lightcoral solid;">
+                    <div id="A_pupil2" class="pupil" style="border: lightcoral solid;"></div>
+                </div>
+            </div>
         </div>
 
-        <div class="eye_box" id="eye1" style="position: relative; left: 50%;">
-            <div class="eye_center" id="eye2"></div>
+        <div class="section">
+            <pre>
+.edges{
+    style="border: lightcoral solid;
+    border-radius: 80% 0;
+    transform: rotate(45deg);"
+}
+
+const C_eye1 = new Eye(document.getElementById("C_eye1"), 25, document.getElementById("C_pupil1"), true);
+const C_eye2 = new Eye(document.getElementById("C_eye2"), 25, document.getElementById("C_pupil2"));
+            </pre>
+            <div class="container" style="gap: 70px;">
+                <div class="edges">
+                    <div id="C_eye1" class="eye" style="transform: rotate(-45deg);">
+                        <div id="C_pupil1" class="pupil" style="border: lightcoral solid;"></div>
+                    </div>
+                </div>
+                <div class="edges">
+                    <div id="C_eye2" class="eye" style="transform: rotate(-45deg);">
+                        <div id="C_pupil2" class="pupil" style="border: lightcoral solid;"></div>
+                    </div>
+                </div>
+            </div>
         </div>
 
+        <div class="section">
+            <div class="container" style="gap: 70px;">
+                <div class="edges">
+                    <div class="eyelid"></div>
+                    <div id="D_eye1" class="eye" style="transform: rotate(-45deg);">
+                        <div id="D_pupil1" class="pupil" style="border: lightcoral solid;"></div>
+                    </div>
+                    
+                </div>
+                <div class="edges">
+                    <div class="eyelid"></div>
+                    <div id="D_eye2" class="eye" style="transform: rotate(-45deg);">
+                        <div id="D_pupil2" class="pupil" style="border: lightcoral solid;"></div>
+                    </div>
+                    
+                </div>
+            </div>
+        </div>
 
-        <div class="fd_wrapper">
+        <div class="section">
+            <div id="test" class="container close" style="gap: 70px;">
+                <div class="eye_wrapper">
+                    <div class="edges">
+                        <div class="eyelid"></div>
+                        <div class="close_lid" style="transform: rotate(-45deg);">
+                            <div id="E_eye1" class="eye">
+                                <div id="E_pupil1" class="pupil" style="border: lightcoral solid;"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="eye_wrapper">
+                    <div class="edges">
+                        <div class="eyelid"></div>
+                        <div class="close_lid" style="transform: rotate(-45deg);">
+                            <div id="E_eye2" class="eye">
+                                <div id="E_pupil2" class="pupil" style="border: lightcoral solid;"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="fd_wrapper section">
             <div class="fd_container">
                 <div id="fd_eye1" class="fd_eyes">
                     <div id="fd_pupil1" class="fd_pupils"></div>
@@ -85,29 +260,30 @@
                 </div>
             </div>
         </div>
+
+
         <script type="module">
             import Eye from "./eye.js";
+            
+            const A_eye1 = new Eye(document.getElementById("A_eye1"), 25, document.getElementById("A_pupil1"), true);
+            const A_eye2 = new Eye(document.getElementById("A_eye2"), 25, document.getElementById("A_pupil2"));
+
+            const C_eye1 = new Eye(document.getElementById("C_eye1"), 25, document.getElementById("C_pupil1"), true);
+            const C_eye2 = new Eye(document.getElementById("C_eye2"), 25, document.getElementById("C_pupil2"));
+
+            const D_eye1 = new Eye(document.getElementById("D_eye1"), 25, document.getElementById("D_pupil1"));
+            const D_eye2 = new Eye(document.getElementById("D_eye2"), 25, document.getElementById("D_pupil2"));
+
+            const E_eye1 = new Eye(document.getElementById("E_eye1"), 25, document.getElementById("E_pupil1"));
+            const E_eye2 = new Eye(document.getElementById("E_eye2"), 25, document.getElementById("E_pupil2"));
+
             const fd_eye1 = new Eye(document.getElementById("fd_eye1"), 25, document.getElementById("fd_pupil1"), true);
             const fd_eye2 = new Eye(document.getElementById("fd_eye2"), 25, document.getElementById("fd_pupil2"));
-        </script>
 
-
-        
-        <script type="module">
-            //import{ ElementPosition } from "./main.js"; //function, but dont want it anymore to function
-            //import * as fn from "./main.js"; //doesnt function
-            
-            function GetElement(e, m){
-                document.getElementById(e).innerHTML = m;
-            }
-
-            let elementCords = ElementPosition(document.getElementById("p1"));
-            //GetElement("p1", name);
-            GetElement("p2", elementCords.top);
-            GetElement("p3", elementCords.left);
-
-
-            
+            setInterval(() => {
+                document.getElementById("test").classList.toggle("open");
+                document.getElementById("test").classList.toggle("close");
+            }, 7000);
         </script>
     </body>
 </html>

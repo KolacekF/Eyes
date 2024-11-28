@@ -81,7 +81,7 @@ class Eye{
         this.border.style.display = "inline-grid";
         this.border.style.placeItems = "center";
         this.pupil.style.position = "relative";
-        this.pupil.style.borderRadius = "25px"; //unnesessary - only to see if it works
+        //this.pupil.style.borderRadius = "25px"; //unnesessary - only to see if it works
         this.pupil.style.transition = "top 150ms ease-in-out 0s"; //not to jump to new location if mouse draged out of window and then back in
         this.pupil.style.transition = "left 150ms ease-in-out 0s"; //not to jump to new location if mouse draged out of window and then back in
     }
