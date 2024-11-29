@@ -52,13 +52,49 @@
                 border-right: 3px solid;
                 border-radius: 80% 0;
                 transform: rotate3d(0, 0, 0, 0);
+                transition: all 1s ease;
+                z-index: 1;
+            }
+
+            .animate .eyelid{
                 animation: eyelid 1s infinite alternate;
             }
             @keyframes eyelid {
                 to {transform: rotate3d(1, -1, 0, 180deg); top: -3px; left: -3px;}
             }
+
+            .eye_wrapper{
+                overflow: hidden;
+                padding: 25px;
+            }
+            .close .eyelid{
+                transform: rotate3d(0, 0, 0, 0); top: 0; left: 0;
+            }
+            .open .eyelid{
+                transform: rotate3d(1, -1, 0, 180deg); top: -3px; left: -3px;
+            }
+            
+            .close_lid{
+                position: relative;
+            }
+            .close_lid::after{
+                content: "";
+                background-color: lightcyan;
+                display: block;
+                position: absolute;
+                width: 150%;
+                height: 150%;
+                left: -25px;
+                transition: all 1s ease;
+            }
+            .close .close_lid::after{
+                top: -25%;
+            }
+            .open .close_lid::after{
+                top: -150%;
+            }
         </style>
-        <style>
+        <!--<style>
             #test .eye_wrapper{
                 overflow: hidden;
                 padding: 25px;
@@ -96,7 +132,7 @@
             #test.close .close_lid::after{
                 top: -150%;
             }
-        </style>
+        </style>-->
         <style>
             #eye_box{
                 width: 100px;
@@ -207,7 +243,29 @@ const C_eye2 = new Eye(document.getElementById("C_eye2"), 25, document.getElemen
         </div>
 
         <div class="section">
-            <div class="container" style="gap: 70px;">
+            <pre>
+.eyelid{
+    position: absolute;
+    width: 100px;
+    height: 100px;
+    border-bottom: 3px solid;
+    border-right: 3px solid;
+    border-radius: 80% 0;
+    transform: rotate3d(0, 0, 0, 0);
+    transition: all 1s ease;
+    z-index: 1;
+}
+.animate .eyelid{
+    animation: eyelid 1s infinite alternate;
+}
+@keyframes eyelid {
+    to {transform: rotate3d(1, -1, 0, 180deg); top: -3px; left: -3px;}
+}
+
+const D_eye1 = new Eye(document.getElementById("D_eye1"), 25, document.getElementById("D_pupil1"));
+const D_eye2 = new Eye(document.getElementById("D_eye2"), 25, document.getElementById("D_pupil2"));
+            </pre>
+            <div class="container animate" style="gap: 70px;">
                 <div class="edges">
                     <div class="eyelid"></div>
                     <div id="D_eye1" class="eye" style="transform: rotate(-45deg);">
@@ -226,8 +284,43 @@ const C_eye2 = new Eye(document.getElementById("C_eye2"), 25, document.getElemen
         </div>
 
         <div class="section">
-            <div id="test" class="container close" style="gap: 70px;">
-                <div class="eye_wrapper">
+            <pre>
+.eye_wrapper{
+    overflow: hidden;
+    padding: 25px;
+}
+.close .eyelid{
+    transform: rotate3d(0, 0, 0, 0); top: 0; left: 0;
+}
+.open .eyelid{
+    transform: rotate3d(1, -1, 0, 180deg); top: -3px; left: -3px;
+}
+
+.close_lid{
+    position: relative;
+}
+.close_lid::after{
+    content: "";
+    background-color: lightcyan;
+    display: block;
+    position: absolute;
+    width: 150%;
+    height: 150%;
+    left: -25px;
+    transition: all 1s ease;
+}
+.close .close_lid::after{
+    top: -25%;
+}
+.open .close_lid::after{
+    top: -150%;
+}
+
+const E_eye1 = new Eye(document.getElementById("E_eye1"), 25, document.getElementById("E_pupil1"), document.getElementById("wrapper_A"));
+const E_eye2 = new Eye(document.getElementById("E_eye2"), 25, document.getElementById("E_pupil2"), document.getElementById("wrapper_B"));
+            </pre>
+            <div id="final" class="container" style="gap: 70px;">
+                <div id="wrapper_A" class="eye_wrapper close">
                     <div class="edges">
                         <div class="eyelid"></div>
                         <div class="close_lid" style="transform: rotate(-45deg);">
@@ -237,7 +330,7 @@ const C_eye2 = new Eye(document.getElementById("C_eye2"), 25, document.getElemen
                         </div>
                     </div>
                 </div>
-                <div class="eye_wrapper">
+                <div id="wrapper_B" class="eye_wrapper close">
                     <div class="edges">
                         <div class="eyelid"></div>
                         <div class="close_lid" style="transform: rotate(-45deg);">
@@ -265,25 +358,25 @@ const C_eye2 = new Eye(document.getElementById("C_eye2"), 25, document.getElemen
         <script type="module">
             import Eye from "./eye.js";
             
-            const A_eye1 = new Eye(document.getElementById("A_eye1"), 25, document.getElementById("A_pupil1"), true);
+            const A_eye1 = new Eye(document.getElementById("A_eye1"), 25, document.getElementById("A_pupil1"), false, true);
             const A_eye2 = new Eye(document.getElementById("A_eye2"), 25, document.getElementById("A_pupil2"));
 
-            const C_eye1 = new Eye(document.getElementById("C_eye1"), 25, document.getElementById("C_pupil1"), true);
+            const C_eye1 = new Eye(document.getElementById("C_eye1"), 25, document.getElementById("C_pupil1"), false, true);
             const C_eye2 = new Eye(document.getElementById("C_eye2"), 25, document.getElementById("C_pupil2"));
 
             const D_eye1 = new Eye(document.getElementById("D_eye1"), 25, document.getElementById("D_pupil1"));
             const D_eye2 = new Eye(document.getElementById("D_eye2"), 25, document.getElementById("D_pupil2"));
 
-            const E_eye1 = new Eye(document.getElementById("E_eye1"), 25, document.getElementById("E_pupil1"));
-            const E_eye2 = new Eye(document.getElementById("E_eye2"), 25, document.getElementById("E_pupil2"));
+            const E_eye1 = new Eye(document.getElementById("E_eye1"), 25, document.getElementById("E_pupil1"), document.getElementById("wrapper_A"));
+            const E_eye2 = new Eye(document.getElementById("E_eye2"), 25, document.getElementById("E_pupil2"), document.getElementById("wrapper_B"));
 
-            const fd_eye1 = new Eye(document.getElementById("fd_eye1"), 25, document.getElementById("fd_pupil1"), true);
+            const fd_eye1 = new Eye(document.getElementById("fd_eye1"), 25, document.getElementById("fd_pupil1"), false, true);
             const fd_eye2 = new Eye(document.getElementById("fd_eye2"), 25, document.getElementById("fd_pupil2"));
 
-            setInterval(() => {
-                document.getElementById("test").classList.toggle("open");
-                document.getElementById("test").classList.toggle("close");
-            }, 7000);
+            //setInterval(() => {
+            //    document.getElementById("final").classList.toggle("open");
+            //    document.getElementById("final").classList.toggle("close");
+            //}, 3000);
         </script>
     </body>
 </html>

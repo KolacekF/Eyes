@@ -1,14 +1,12 @@
 class Eye{
-    constructor(border, eyelid, pupil, debuging = false){
-        document.addEventListener("mousemove", (e)=>(this.handleMouseMove(e, this))); //mousemove moves the pupil
-        document.addEventListener("touchmove", (e)=>(this.handleMouseMove(e.touches[0], this))); //touchmove moves the pupil, because of multitouch its hold in array .touches
-        document.addEventListener("resize", ()=>(this.updateLocation(this))); //resize changes the window size
-        document.addEventListener("scroll", ()=>(this.updateLocation(this)));//scroll changes position relative to mouse
-        
+    constructor(border, eyelid, pupil, container = false, debuging = false){
         this.border = border; //html element node
         this.pupil = pupil; //html element node
+        this.container = container; //html element node - top parent with classes that drive the eylid motion
 
         this.eyelid = eyelid; //circle in px
+        this.interval = false; //this.interval for setInterval()
+        this.hover = false; //value that keeps record, if mouse is hovering over the eye
         
         this.center = {}; //center of the border element - position in absolute px //gets updated by updateLocation()
         this.windowSize = {}; //size of browser window //gets updated by updateLocation()
@@ -19,9 +17,58 @@ class Eye{
             this.debugingOn();
         }
 
+        this.start();
+    }
+    start(){
+        document.addEventListener("mousemove", (e)=>(this.handleMouseMove(e, this))); //mousemove moves the pupil
+        document.addEventListener("touchmove", (e)=>(this.handleMouseMove(e.touches[0], this))); //touchmove moves the pupil, because of multitouch its hold in array .touches
+        document.addEventListener("resize", ()=>(this.updateLocation(this))); //resize changes the window size
+        document.addEventListener("scroll", ()=>(this.updateLocation(this)));//scroll changes position relative to mouse
+
+        if (this.container){ //if top parent exists
+            console.log("added-1");
+            //this.pupil.addEventListener("mouseover", ()=>{alert("alert"); this.blink()});
+            this.container.addEventListener("mouseenter", ()=>{this.closeEye(); this.hover = true;});
+            this.container.addEventListener("mouseleave", ()=>{this.openEye(); this.hover = false;});
+        }
+
         this.styling();
 
-        this.updateLocation(); //run once on init to fill other this. values, then by eventTrigger resize | scroll 
+        this.updateLocation(); //run once on init to fill other this. values, then by eventTrigger resize | scroll
+    
+        if(this.container) { //only if eye has super parent that moves the eyelid
+            this.openEye();
+            this.startInterval();
+        }
+    }
+    startInterval(){
+        const wrapper = () => {
+            setTimeout(() => {
+                this.closeEye();
+                setTimeout(() => {
+                    this.openEye();
+                    return setTimeout(wrapper, 5000);
+                }, 1000);
+            }, 5000);
+        }
+        wrapper();
+    }
+    stopInterval(){
+        clearInterval(this.interval);
+    }
+    blink(){
+        this.container.classList.toggle("open");
+        this.container.classList.toggle("close");
+    }
+    openEye(){
+        console.log("openEye", this);
+        this.container.classList.remove("close");
+        this.container.classList.add("open");
+    }
+    closeEye(){
+        console.log("closeeye");
+        this.container.classList.remove("open");
+        this.container.classList.add("close");
     }
     updateLocation(eyeClassInstance = this){ //eyeClassInstance server as this, but because of handler on document, it needs to be like this
         let elemRect = this.border.getBoundingClientRect();
