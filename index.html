@@ -145,6 +145,7 @@
 
 const A_eye1 = new Eye(document.getElementById("A_eye1"), 25, document.getElementById("A_pupil1"), true);
 const A_eye2 = new Eye(document.getElementById("A_eye2"), 25, document.getElementById("A_pupil2"));
+A_eye1.start(); A_eye2.start();
             </pre>
             <div class="container">
                 <div id="A_eye1" class="eye" style="border: lightcoral solid;">
@@ -166,6 +167,7 @@ const A_eye2 = new Eye(document.getElementById("A_eye2"), 25, document.getElemen
 
 const C_eye1 = new Eye(document.getElementById("C_eye1"), 25, document.getElementById("C_pupil1"), true);
 const C_eye2 = new Eye(document.getElementById("C_eye2"), 25, document.getElementById("C_pupil2"));
+C_eye1.start(); C_eye2.start();
             </pre>
             <div class="container" style="gap: 70px;">
                 <div class="edges">
@@ -203,6 +205,7 @@ const C_eye2 = new Eye(document.getElementById("C_eye2"), 25, document.getElemen
 
 const D_eye1 = new Eye(document.getElementById("D_eye1"), 25, document.getElementById("D_pupil1"));
 const D_eye2 = new Eye(document.getElementById("D_eye2"), 25, document.getElementById("D_pupil2"));
+D_eye1.start(); D_eye2.start();
             </pre>
             <div class="container animate" style="gap: 70px;">
                 <div class="edges">
@@ -257,6 +260,7 @@ const D_eye2 = new Eye(document.getElementById("D_eye2"), 25, document.getElemen
 
 const E_eye1 = new Eye(document.getElementById("E_eye1"), 25, document.getElementById("E_pupil1"), document.getElementById("wrapper_A"));
 const E_eye2 = new Eye(document.getElementById("E_eye2"), 25, document.getElementById("E_pupil2"), document.getElementById("wrapper_B"));
+E_eye1.start(); E_eye2.start();
             </pre>
             <div id="final" class="container" style="gap: 70px;">
                 <div id="wrapper_A" class="eye_wrapper close">
@@ -299,18 +303,23 @@ const E_eye2 = new Eye(document.getElementById("E_eye2"), 25, document.getElemen
             
             const A_eye1 = new Eye(document.getElementById("A_eye1"), 25, document.getElementById("A_pupil1"), false, true);
             const A_eye2 = new Eye(document.getElementById("A_eye2"), 25, document.getElementById("A_pupil2"));
+            A_eye1.start(); A_eye2.start();
 
             const C_eye1 = new Eye(document.getElementById("C_eye1"), 25, document.getElementById("C_pupil1"), false, true);
             const C_eye2 = new Eye(document.getElementById("C_eye2"), 25, document.getElementById("C_pupil2"));
+            C_eye1.start(); C_eye2.start();
 
             const D_eye1 = new Eye(document.getElementById("D_eye1"), 25, document.getElementById("D_pupil1"));
             const D_eye2 = new Eye(document.getElementById("D_eye2"), 25, document.getElementById("D_pupil2"));
+            D_eye1.start(); D_eye2.start();
 
             const E_eye1 = new Eye(document.getElementById("E_eye1"), 25, document.getElementById("E_pupil1"), document.getElementById("wrapper_A"));
             const E_eye2 = new Eye(document.getElementById("E_eye2"), 25, document.getElementById("E_pupil2"), document.getElementById("wrapper_B"));
+            E_eye1.start(); E_eye2.start();
 
             const fd_eye1 = new Eye(document.getElementById("fd_eye1"), 25, document.getElementById("fd_pupil1"), false, true);
             const fd_eye2 = new Eye(document.getElementById("fd_eye2"), 25, document.getElementById("fd_pupil2"));
+            fd_eye1.start(); fd_eye2.start();
         </script>
     </body>
 </html>
